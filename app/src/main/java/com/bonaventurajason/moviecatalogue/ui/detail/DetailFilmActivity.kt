@@ -9,8 +9,10 @@ import com.bonaventurajason.moviecatalogue.data.FilmEntity
 import com.bonaventurajason.moviecatalogue.utils.Constant.EXTRA_FILM_ID
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_detail_film.*
 
+@AndroidEntryPoint
 class DetailFilmActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

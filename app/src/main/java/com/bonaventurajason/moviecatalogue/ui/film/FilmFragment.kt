@@ -12,7 +12,9 @@ import com.bonaventurajason.moviecatalogue.databinding.FragmentFilmBinding
 import com.bonaventurajason.moviecatalogue.ui.detail.DetailFilmActivity
 import com.bonaventurajason.moviecatalogue.utils.Constant.ARG_POSITION
 import com.bonaventurajason.moviecatalogue.utils.Constant.EXTRA_FILM_ID
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FilmFragment : Fragment() {
     private var _binding: FragmentFilmBinding? = null
     private val binding get() = _binding!!
