@@ -8,16 +8,18 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bonaventurajason.moviecatalogue.R
 import com.bonaventurajason.moviecatalogue.data.FilmEntity
+import com.bonaventurajason.moviecatalogue.data.source.model.FilmResult
+import com.bonaventurajason.moviecatalogue.utils.Constant
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.item_film.view.*
 
 class FilmAdapter : RecyclerView.Adapter<FilmAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(film: FilmEntity) {
+        fun bind(film: FilmResult) {
             with(itemView) {
                 Glide.with(context)
-                    .load(film.poster)
+                    .load(Constant.IMAGE_URL+film.backdropPath)
                     .apply(
                         RequestOptions.placeholderOf(R.drawable.ic_loading)
                             .error(R.drawable.ic_error)
@@ -26,26 +28,26 @@ class FilmAdapter : RecyclerView.Adapter<FilmAdapter.ViewHolder>() {
                 title.text = film.title
                 setOnClickListener {
                     onItemClickListener?.let {
-                        it(film.filmId)
+                        it(film.id)
                     }
                 }
             }
         }
     }
 
-    private val differCallback = object : DiffUtil.ItemCallback<FilmEntity>(){
-        override fun areItemsTheSame(oldItem: FilmEntity, newItem: FilmEntity): Boolean {
-            return oldItem.filmId == newItem.filmId
+    private val differCallback = object : DiffUtil.ItemCallback<FilmResult>(){
+        override fun areItemsTheSame(oldItem: FilmResult, newItem: FilmResult): Boolean {
+            return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: FilmEntity, newItem: FilmEntity): Boolean {
+        override fun areContentsTheSame(oldItem: FilmResult, newItem: FilmResult): Boolean {
             return oldItem == newItem
         }
 
     }
     val differ = AsyncListDiffer(this, differCallback)
 
-    fun submitList(list: List<FilmEntity>) = differ.submitList(list)
+    fun submitList(list: List<FilmResult?>) = differ.submitList(list)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -59,9 +61,9 @@ class FilmAdapter : RecyclerView.Adapter<FilmAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = differ.currentList.size
 
-    private var onItemClickListener: ((String) -> Unit)? = null
+    private var onItemClickListener: ((Int) -> Unit)? = null
 
-    fun setOnItemClickListener(listener: (String) -> Unit){
+    fun setOnItemClickListener(listener: (Int) -> Unit){
         onItemClickListener = listener
     }
 }

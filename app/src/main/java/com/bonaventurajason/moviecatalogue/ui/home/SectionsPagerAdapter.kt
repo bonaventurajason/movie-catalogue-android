@@ -20,7 +20,7 @@ class SectionsPagerAdapter(
     }
     override fun getCount(): Int = TAB_TITLES.size
 
-    override fun getPageTitle(position: Int): CharSequence? = context.resources.getString(TAB_TITLES[position])
+    override fun getPageTitle(position: Int): CharSequence = context.resources.getString(TAB_TITLES[position])
 
     override fun getItem(position: Int): Fragment =
        FilmFragment.newInstance(position)

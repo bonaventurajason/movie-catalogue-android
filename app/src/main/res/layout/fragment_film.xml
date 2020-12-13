@@ -9,9 +9,11 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/text_error"
@@ -23,6 +25,16 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/empty_film"
         android:textSize="@dimen/medium_font_size"
+        android:visibility="gone"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
