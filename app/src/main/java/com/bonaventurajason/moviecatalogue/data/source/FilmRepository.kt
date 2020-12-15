@@ -8,4 +8,8 @@ class FilmRepository @Inject constructor(
 ){
     suspend fun getAllMovies() = filmApi.getPopularMovies()
     suspend fun getAllTVShows() = filmApi.getPopularTVShows()
+
+    suspend fun getDetailMovies(movieId: Int) = filmApi.getDetailMovies(movieId)
+    suspend fun getDetailTVShows(tvId: Int) = filmApi.getDetailTVSHows(tvId)
+
 }

@@ -15,6 +15,9 @@ import com.bonaventurajason.moviecatalogue.ui.detail.DetailFilmActivity
 import com.bonaventurajason.moviecatalogue.utils.Constant
 import com.bonaventurajason.moviecatalogue.utils.Constant.ARG_POSITION
 import com.bonaventurajason.moviecatalogue.utils.Constant.EXTRA_FILM_ID
+import com.bonaventurajason.moviecatalogue.utils.Constant.MOVIE
+import com.bonaventurajason.moviecatalogue.utils.Constant.TV_SHOW
+import com.bonaventurajason.moviecatalogue.utils.Constant.TYPE_OF_FILM
 import com.bonaventurajason.moviecatalogue.utils.Resource
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
@@ -67,8 +70,14 @@ class FilmFragment : Fragment() {
                     observeTVShows()
                 }
                 filmAdapter.setOnItemClickListener {
+                    val typeOfFilm: String = if (arguments?.getInt(ARG_POSITION) == 0) {
+                        MOVIE
+                    } else {
+                        TV_SHOW
+                    }
                     val intent = Intent(requireContext(), DetailFilmActivity::class.java).apply {
                         putExtra(EXTRA_FILM_ID, it)
+                        putExtra(TYPE_OF_FILM, typeOfFilm)
                     }
                     startActivity(intent)
                 }
@@ -79,21 +88,20 @@ class FilmFragment : Fragment() {
 
     private fun observeTVShows() {
         viewModel.tvShows.observe(viewLifecycleOwner, { response ->
-            when(response){
-                is Resource.Success ->{
+            when (response) {
+                is Resource.Success -> {
                     hideProgressBar()
                     response.data?.let { publicReportResponse ->
                         Timber.d("Data tv show ${publicReportResponse.results}")
-                        if(publicReportResponse.results.isNullOrEmpty()){
+                        if (publicReportResponse.results.isNullOrEmpty()) {
                             showEmptyState()
-                        }
-                        else{
+                        } else {
                             hideEmptyState()
                             filmAdapter.submitList(publicReportResponse.results)
                         }
                     }
                 }
-                is Resource.Error ->{
+                is Resource.Error -> {
                     hideProgressBar()
                     showErrorDialog(response.message)
                 }
@@ -106,20 +114,19 @@ class FilmFragment : Fragment() {
 
     private fun observeMovies() {
         viewModel.movies.observe(viewLifecycleOwner, { response ->
-            when(response){
-                is Resource.Success ->{
+            when (response) {
+                is Resource.Success -> {
                     hideProgressBar()
                     response.data?.let { publicReportResponse ->
-                        if(publicReportResponse.results.isNullOrEmpty()){
+                        if (publicReportResponse.results.isNullOrEmpty()) {
                             showEmptyState()
-                        }
-                        else{
+                        } else {
                             hideEmptyState()
                             filmAdapter.submitList(publicReportResponse.results)
                         }
                     }
                 }
-                is Resource.Error ->{
+                is Resource.Error -> {
                     hideProgressBar()
                     showErrorDialog(response.message)
                 }
@@ -154,12 +161,11 @@ class FilmFragment : Fragment() {
         binding.progressBar.visibility = View.VISIBLE
     }
 
-    private fun showErrorDialog(msg : String?) {
+    private fun showErrorDialog(msg: String?) {
 
-        val msgError = if(msg == Constant.NO_INTERNET){
+        val msgError = if (msg == Constant.NO_INTERNET) {
             getString(R.string.network_error)
-        }
-        else{
+        } else {
             getString(R.string.other_error)
         }
         MaterialAlertDialogBuilder(requireContext())

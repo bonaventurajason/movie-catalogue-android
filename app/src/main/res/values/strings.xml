@@ -8,8 +8,11 @@
     <string name="genre">Genre</string>
     <string name="creator">Creator</string>
     <string name="empty_film">Film data is empty</string>
-    <string name="poster">poster</string>
+    <string name="poster">Poster</string>
     <string name="network_error">No Internet Connection. Please check your connection</string>
     <string name="other_error">An error has occurred</string>
     <string name="retry">Retry</string>
+    <string name="star">star</string>
+    <string name="original_language">Original Language</string>
+    <string name="homepage">Homepage</string>
 </resources>

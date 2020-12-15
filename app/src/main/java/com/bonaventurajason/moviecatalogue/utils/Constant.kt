@@ -7,6 +7,9 @@ object Constant {
     const val ARG_POSITION = "position"
 
     const val EXTRA_FILM_ID = "film_id"
+    const val TYPE_OF_FILM = "type_of_film"
+    const val MOVIE = "movies"
+    const val TV_SHOW = "tv_show"
 
 
 }
