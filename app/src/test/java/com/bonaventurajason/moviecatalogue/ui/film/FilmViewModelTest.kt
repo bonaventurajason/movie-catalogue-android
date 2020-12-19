@@ -1,31 +1,44 @@
 package com.bonaventurajason.moviecatalogue.ui.film
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.bonaventurajason.moviecatalogue.MainCoroutineRule
+import com.bonaventurajason.moviecatalogue.data.source.FakeFilmRepository
+import com.bonaventurajason.moviecatalogue.utils.Status
+import com.bonaventurajason.moviecatalogue.utils.getOrAwaitValueTest
+import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
-import org.junit.Assert.*
-import org.junit.Before
-
+@ExperimentalCoroutinesApi
 class FilmViewModelTest {
 
     private lateinit var viewModel: FilmViewModel
 
+    @get:Rule
+    var instantTaskRuleExecutor = InstantTaskExecutorRule()
+
+    @get:Rule
+    var mainCoroutineRule = MainCoroutineRule()
+
     @Before
-    fun setUp(){
-        viewModel = FilmViewModel()
+    fun setup(){
+        viewModel = FilmViewModel(FakeFilmRepository())
     }
 
     @Test
-    fun getMovies() {
-        val movieEntities = viewModel.getMovies()
-        assertNotNull(movieEntities)
-        assertEquals(10, movieEntities.size)
-
+    fun getMovies(){
+        viewModel.getMovies()
+        val value = viewModel.movies.getOrAwaitValueTest()
+        assertThat(value.getContentIfNotHandled()?.status).isEqualTo(Status.SUCCESS)
     }
 
     @Test
-    fun getTvShows() {
-        val tvShowEntities = viewModel.getTvShows()
-        assertNotNull(tvShowEntities)
-        assertEquals(10, tvShowEntities.size)
+    fun getTVShows(){
+        viewModel.getTVShows()
+        val value = viewModel.tvShows.getOrAwaitValueTest()
+        assertThat(value.getContentIfNotHandled()?.status).isEqualTo(Status.SUCCESS)
+
     }
 }

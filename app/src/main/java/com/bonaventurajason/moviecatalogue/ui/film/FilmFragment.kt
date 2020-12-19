@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bonaventurajason.moviecatalogue.R
 import com.bonaventurajason.moviecatalogue.databinding.FragmentFilmBinding
@@ -18,7 +17,7 @@ import com.bonaventurajason.moviecatalogue.utils.Constant.EXTRA_FILM_ID
 import com.bonaventurajason.moviecatalogue.utils.Constant.MOVIE
 import com.bonaventurajason.moviecatalogue.utils.Constant.TV_SHOW
 import com.bonaventurajason.moviecatalogue.utils.Constant.TYPE_OF_FILM
-import com.bonaventurajason.moviecatalogue.utils.Resource
+import com.bonaventurajason.moviecatalogue.utils.Status
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -66,7 +65,7 @@ class FilmFragment : Fragment() {
                     viewModel.getMovies()
                     observeMovies()
                 } else {
-                    viewModel.getTvShows()
+                    viewModel.getTVShows()
                     observeTVShows()
                 }
                 filmAdapter.setOnItemClickListener {
@@ -87,53 +86,60 @@ class FilmFragment : Fragment() {
     }
 
     private fun observeTVShows() {
-        viewModel.tvShows.observe(viewLifecycleOwner, { response ->
-            when (response) {
-                is Resource.Success -> {
-                    hideProgressBar()
-                    response.data?.let { publicReportResponse ->
-                        Timber.d("Data tv show ${publicReportResponse.results}")
-                        if (publicReportResponse.results.isNullOrEmpty()) {
-                            showEmptyState()
-                        } else {
-                            hideEmptyState()
-                            filmAdapter.submitList(publicReportResponse.results)
+        viewModel.tvShows.observe(viewLifecycleOwner, {
+            it?.getContentIfNotHandled()?.let { result ->
+                when (result.status) {
+                    Status.SUCCESS -> {
+                        hideProgressBar()
+                        result.data?.let { publicReportResponse ->
+                            Timber.d("Data tv show ${publicReportResponse.results}")
+                            if (publicReportResponse.results.isNullOrEmpty()) {
+                                showEmptyState()
+                            } else {
+                                hideEmptyState()
+                                filmAdapter.submitList(publicReportResponse.results)
+                            }
                         }
                     }
-                }
-                is Resource.Error -> {
-                    hideProgressBar()
-                    showErrorDialog(response.message)
-                }
-                is Resource.Loading -> {
-                    showProgressBar()
-                }
+                    Status.ERROR -> {
+                        hideProgressBar()
+                        showErrorDialog(result.message)
+                    }
+                    Status.LOADING -> {
+                        showProgressBar()
+                    }
+            }
+
+
             }
         })
     }
 
     private fun observeMovies() {
-        viewModel.movies.observe(viewLifecycleOwner, { response ->
-            when (response) {
-                is Resource.Success -> {
-                    hideProgressBar()
-                    response.data?.let { publicReportResponse ->
-                        if (publicReportResponse.results.isNullOrEmpty()) {
-                            showEmptyState()
-                        } else {
-                            hideEmptyState()
-                            filmAdapter.submitList(publicReportResponse.results)
+        viewModel.movies.observe(viewLifecycleOwner, {
+            it?.getContentIfNotHandled()?.let { result ->
+                when (result.status) {
+                    Status.SUCCESS -> {
+                        hideProgressBar()
+                        result.data?.let { publicReportResponse ->
+                            if (publicReportResponse.results.isNullOrEmpty()) {
+                                showEmptyState()
+                            } else {
+                                hideEmptyState()
+                                filmAdapter.submitList(publicReportResponse.results)
+                            }
                         }
                     }
-                }
-                is Resource.Error -> {
-                    hideProgressBar()
-                    showErrorDialog(response.message)
-                }
-                is Resource.Loading -> {
-                    showProgressBar()
+                    Status.ERROR -> {
+                        hideProgressBar()
+                        showErrorDialog(result.message)
+                    }
+                    Status.LOADING -> {
+                        showProgressBar()
+                    }
                 }
             }
+
         })
     }
 
@@ -174,7 +180,7 @@ class FilmFragment : Fragment() {
             .setCancelable(false)
             .setPositiveButton(getString(R.string.retry)) { dialog, which ->
 
-                viewModel.refreshGetAllMovies()
+//                viewModel.refreshGetAllMovies()
                 dialog.dismiss()
             }
             .show()

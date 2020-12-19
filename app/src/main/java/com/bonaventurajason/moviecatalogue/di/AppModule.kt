@@ -1,15 +1,14 @@
 package com.bonaventurajason.moviecatalogue.di
 
-import android.content.Context
-import android.net.ConnectivityManager
 import com.bonaventurajason.moviecatalogue.BuildConfig
+import com.bonaventurajason.moviecatalogue.data.source.FilmDataSource
+import com.bonaventurajason.moviecatalogue.data.source.FilmRepository
 import com.bonaventurajason.moviecatalogue.data.source.remote.api.FilmApi
 import com.bonaventurajason.moviecatalogue.utils.Constant
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
-import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -20,6 +19,13 @@ import javax.inject.Singleton
 @Module
 @InstallIn(ApplicationComponent::class)
 object AppModule {
+
+    @Provides
+    @Singleton
+    fun provideFilmRepository(
+        api: FilmApi
+    ) = FilmRepository(api) as FilmDataSource
+
 
     @Provides
     @Singleton
@@ -47,13 +53,6 @@ object AppModule {
     } else OkHttpClient
         .Builder()
         .build()
-
-
-    @Singleton
-    @Provides
-    fun provideConnectivityManager(
-        @ApplicationContext context: Context
-    ) : ConnectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
 
 }

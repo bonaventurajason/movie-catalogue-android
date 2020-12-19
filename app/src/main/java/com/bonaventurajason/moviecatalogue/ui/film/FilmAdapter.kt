@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bonaventurajason.moviecatalogue.R
-import com.bonaventurajason.moviecatalogue.data.FilmEntity
 import com.bonaventurajason.moviecatalogue.data.source.model.FilmResult
 import com.bonaventurajason.moviecatalogue.utils.Constant
 import com.bumptech.glide.Glide
@@ -45,7 +44,7 @@ class FilmAdapter : RecyclerView.Adapter<FilmAdapter.ViewHolder>() {
         }
 
     }
-    val differ = AsyncListDiffer(this, differCallback)
+    private val differ = AsyncListDiffer(this, differCallback)
 
     fun submitList(list: List<FilmResult?>) = differ.submitList(list)
 

@@ -54,10 +54,20 @@ dependencies {
 
     //testing
     testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.hamcrest:hamcrest-all:$hamcrestVersion"
+    testImplementation "org.robolectric:robolectric:$roboelectricVersion"
+    testImplementation "com.google.truth:truth:$truthVersion"
+    testImplementation "androidx.arch.core:core-testing:$archCoreTestingVersion"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineTestVersion"
+
+
+    //instrument testing
+    implementation "com.android.support.test.espresso:espresso-idling-resource:$idlingResourceVersion"
     androidTestImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
     androidTestImplementation "androidx.test:core-ktx:$androidXTestVersion"
+    androidTestImplementation  "com.google.truth:truth:$truthVersion"
 
     //Architectural Components
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$archLifecycleVersion"

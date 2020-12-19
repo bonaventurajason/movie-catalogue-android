@@ -5,8 +5,6 @@
     <string name="tv_show">TV Show</string>
     <string name="description">Description</string>
     <string name="release_date">Release Date</string>
-    <string name="genre">Genre</string>
-    <string name="creator">Creator</string>
     <string name="empty_film">Film data is empty</string>
     <string name="poster">Poster</string>
     <string name="network_error">No Internet Connection. Please check your connection</string>
@@ -14,5 +12,4 @@
     <string name="retry">Retry</string>
     <string name="star">star</string>
     <string name="original_language">Original Language</string>
-    <string name="homepage">Homepage</string>
 </resources>

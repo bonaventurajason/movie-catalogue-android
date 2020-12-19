@@ -1,21 +1,17 @@
 package com.bonaventurajason.moviecatalogue.ui.detail
 
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModelProvider
+import androidx.appcompat.app.AppCompatActivity
 import com.bonaventurajason.moviecatalogue.R
-import com.bonaventurajason.moviecatalogue.data.FilmEntity
 import com.bonaventurajason.moviecatalogue.data.source.remote.response.DetailFilmResponse
 import com.bonaventurajason.moviecatalogue.databinding.ActivityDetailFilmBinding
 import com.bonaventurajason.moviecatalogue.utils.Constant
 import com.bonaventurajason.moviecatalogue.utils.Constant.EXTRA_FILM_ID
-import com.bonaventurajason.moviecatalogue.utils.Constant.MOVIE
 import com.bonaventurajason.moviecatalogue.utils.Constant.TYPE_OF_FILM
-import com.bonaventurajason.moviecatalogue.utils.Resource
+import com.bonaventurajason.moviecatalogue.utils.Status
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -53,23 +49,26 @@ class DetailFilmActivity : AppCompatActivity() {
     }
 
     private fun observeDetailFilm(filmId: Int, typeOfFilm: String) {
-        viewModel.detailFilm.observe(this, { response ->
-            when (response) {
-                is Resource.Success -> {
-                    hideProgressBar()
-                    response.data?.let { detailFilmResponse ->
-                        Timber.d("Detail film $detailFilmResponse")
-                        populateFilmDetail(detailFilmResponse)
+        viewModel.detailFilm.observe(this, {
+            it?.getContentIfNotHandled()?.let { result ->
+                when (result.status) {
+                    Status.SUCCESS  -> {
+                        hideProgressBar()
+                        result.data?.let { detailFilmResponse ->
+                            Timber.d("Detail film $detailFilmResponse")
+                            populateFilmDetail(detailFilmResponse)
+                        }
+                    }
+                    Status.ERROR -> {
+                        hideProgressBar()
+                        showErrorDialog(result.message, filmId, typeOfFilm)
+                    }
+                    Status.LOADING -> {
+                        showProgressBar()
                     }
                 }
-                is Resource.Error -> {
-                    hideProgressBar()
-                    showErrorDialog(response.message, filmId, typeOfFilm)
-                }
-                is Resource.Loading -> {
-                    showProgressBar()
-                }
             }
+
         })
     }
 
@@ -123,7 +122,7 @@ class DetailFilmActivity : AppCompatActivity() {
             .setCancelable(false)
             .setPositiveButton(getString(R.string.retry)) { dialog, which ->
 
-                viewModel.refreshGetDetailFilm(typeOfFilm, id)
+//                viewModel.refreshGetDetailFilm(typeOfFilm, id)
                 dialog.dismiss()
             }
             .show()

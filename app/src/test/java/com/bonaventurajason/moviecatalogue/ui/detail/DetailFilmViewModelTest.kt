@@ -1,39 +1,46 @@
 package com.bonaventurajason.moviecatalogue.ui.detail
 
-import com.bonaventurajason.moviecatalogue.utils.DataDummy
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.bonaventurajason.moviecatalogue.MainCoroutineRule
+import com.bonaventurajason.moviecatalogue.data.source.FakeFilmRepository
+import com.bonaventurajason.moviecatalogue.utils.Constant.MOVIE
+import com.bonaventurajason.moviecatalogue.utils.Constant.TV_SHOW
+import com.bonaventurajason.moviecatalogue.utils.Status
+import com.bonaventurajason.moviecatalogue.utils.getOrAwaitValueTest
+import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
-import org.junit.Assert.*
-
+@ExperimentalCoroutinesApi
 class DetailFilmViewModelTest {
 
-    private lateinit var viewModel: DetailFilmViewModel
+    private lateinit var  viewModel: DetailFilmViewModel
 
-    private val dummyFilm = DataDummy.generateDummyMovies()[0]
-    private val dummyFilmId = dummyFilm.filmId
+    @get:Rule
+    var instantTaskRuleExecutor = InstantTaskExecutorRule()
+
+    @get:Rule
+    var mainCoroutineRule = MainCoroutineRule()
 
 
     @Before
-    fun setUp() {
-        viewModel = DetailFilmViewModel()
-        viewModel.setSelectedFilm(dummyFilmId)
+    fun setup(){
+        viewModel = DetailFilmViewModel(FakeFilmRepository())
     }
 
     @Test
-    fun getFilm() {
-        viewModel.setSelectedFilm(dummyFilm.filmId)
-        val filmEntity = viewModel.getFilm()
-        assertNotNull(filmEntity)
-        assertEquals(dummyFilm.filmId, filmEntity.filmId)
-        assertEquals(dummyFilm.title, filmEntity.title)
-        assertEquals(dummyFilm.poster, filmEntity.poster)
-        assertEquals(dummyFilm.creator, filmEntity.creator)
-        assertEquals(dummyFilm.description, filmEntity.description)
-        assertEquals(dummyFilm.genre, filmEntity.genre)
-        assertEquals(dummyFilm.releaseDate, filmEntity.releaseDate)
-        assertEquals(dummyFilm.rating, filmEntity.rating, 0.001)
+    fun getDetailMovie(){
+        viewModel.getDetailFilm(MOVIE, 0)
+        val value = viewModel.detailFilm.getOrAwaitValueTest()
+        assertThat(value.getContentIfNotHandled()?.status).isEqualTo(Status.SUCCESS)
+    }
 
-
+    @Test
+    fun getDetailTVShow(){
+        viewModel.getDetailFilm(TV_SHOW, 0)
+        val value = viewModel.detailFilm.getOrAwaitValueTest()
+        assertThat(value.getContentIfNotHandled()?.status).isEqualTo(Status.SUCCESS)
     }
 }
