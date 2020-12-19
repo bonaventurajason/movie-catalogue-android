@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -14,7 +16,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
+        buildConfigField("String", "TMDB_TOKEN", '"84fb47c56380be929187109b9430ffc2"')
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -48,16 +50,42 @@ dependencies {
     implementation "com.google.android.material:material:$materialVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     implementation "com.github.bumptech.glide:glide:$glideVersion"
+    implementation "androidx.fragment:fragment-ktx:$fragmentVersion"
 
     //testing
     testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.hamcrest:hamcrest-all:$hamcrestVersion"
+    testImplementation "org.robolectric:robolectric:$roboelectricVersion"
+    testImplementation "com.google.truth:truth:$truthVersion"
+    testImplementation "androidx.arch.core:core-testing:$archCoreTestingVersion"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineTestVersion"
+
+
+    //instrument testing
+    implementation "com.android.support.test.espresso:espresso-idling-resource:$idlingResourceVersion"
     androidTestImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
     androidTestImplementation "androidx.test:core-ktx:$androidXTestVersion"
+    androidTestImplementation  "com.google.truth:truth:$truthVersion"
 
     //Architectural Components
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$archLifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$archLifecycleVersion"
+
+    //Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$interceptorVersion"
+
+    // Dagger Hilt
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltLifecycleVersion"
+    kapt "androidx.hilt:hilt-compiler:$hiltLifecycleVersion"
 
 }
