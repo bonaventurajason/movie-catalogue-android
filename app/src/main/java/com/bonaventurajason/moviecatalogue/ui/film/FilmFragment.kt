@@ -87,7 +87,7 @@ class FilmFragment : Fragment() {
 
     private fun observeTVShows() {
         viewModel.tvShows.observe(viewLifecycleOwner, {
-            it?.getContentIfNotHandled()?.let { result ->
+            it?.let { result ->
                 when (result.status) {
                     Status.SUCCESS -> {
                         hideProgressBar()
@@ -117,7 +117,7 @@ class FilmFragment : Fragment() {
 
     private fun observeMovies() {
         viewModel.movies.observe(viewLifecycleOwner, {
-            it?.getContentIfNotHandled()?.let { result ->
+            it?.let { result ->
                 when (result.status) {
                     Status.SUCCESS -> {
                         hideProgressBar()

@@ -47,6 +47,7 @@ ext{
     archCoreTestingVersion = '2.1.0'
     coroutineTestVersion = '1.2.1'
     idlingResourceVersion = '3.2.0'
+    mockitoVersion = '3.6.0'
 }
 
 task clean(type: Delete) {
