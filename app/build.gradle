@@ -59,6 +59,8 @@ dependencies {
     testImplementation "com.google.truth:truth:$truthVersion"
     testImplementation "androidx.arch.core:core-testing:$archCoreTestingVersion"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineTestVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "org.mockito:mockito-inline:$mockitoVersion"
 
 
     //instrument testing

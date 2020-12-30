@@ -16,7 +16,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_detail_film.*
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -50,7 +49,7 @@ class DetailFilmActivity : AppCompatActivity() {
 
     private fun observeDetailFilm(filmId: Int, typeOfFilm: String) {
         viewModel.detailFilm.observe(this, {
-            it?.getContentIfNotHandled()?.let { result ->
+            it?.let { result ->
                 when (result.status) {
                     Status.SUCCESS  -> {
                         hideProgressBar()
