@@ -90,4 +90,9 @@ dependencies {
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltLifecycleVersion"
     kapt "androidx.hilt:hilt-compiler:$hiltLifecycleVersion"
 
+    //room
+    implementation "androidx.room:room-runtime:$roomRuntimeVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomRuntimeVersion"
+
 }

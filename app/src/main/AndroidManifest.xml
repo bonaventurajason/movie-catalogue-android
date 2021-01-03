@@ -3,7 +3,7 @@
     package="com.bonaventurajason.moviecatalogue">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".BaseApplication"
@@ -13,12 +13,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Moviecatalogueandroid">
+        <activity android:name=".ui.favourite.FavouriteActivity"></activity>
         <activity android:name=".ui.detail.DetailFilmActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.home.HomeActivity"/>
+                android:value=".ui.home.HomeActivity" />
         </activity>
-        <activity android:name=".ui.home.HomeActivity"
+        <activity
+            android:name=".ui.home.HomeActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
