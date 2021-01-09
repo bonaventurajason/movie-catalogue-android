@@ -48,6 +48,9 @@ ext{
     coroutineTestVersion = '1.2.1'
     idlingResourceVersion = '3.2.0'
     mockitoVersion = '3.6.0'
+    roomVersion = '2.2.3'
+    roomRuntimeVersion = '2.2.6'
+    pagingVersion = '2.1.1'
 }
 
 task clean(type: Delete) {

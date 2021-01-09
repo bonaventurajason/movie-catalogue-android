@@ -16,8 +16,6 @@ import org.junit.Before
 import org.junit.Test
 
 class HomeActivityTest {
-
-
     @Before
     fun setup() {
         ActivityScenario.launch(HomeActivity::class.java)
@@ -43,6 +41,36 @@ class HomeActivityTest {
 
     @Test
     fun loadDetailTVSHow(){
+        onView(withText("TV Show")).perform(click())
+        onView(allOf(withId(R.id.recycler_view), isDisplayed())).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+        onView(withId(R.id.description_value)).perform(swipeUp()).check(matches(isDisplayed()))
+        onView(withId(R.id.release_date_value)).perform(swipeUp()).check(matches(isDisplayed()))
+        onView(withId(R.id.rating)).perform(swipeUp()).check(matches(isDisplayed()))
+        onView(withId(R.id.genre)).perform(swipeUp()).check(matches(isDisplayed()))
+        onView(withId(R.id.original_language_value)).perform(swipeUp()).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun loadFavouriteMovies(){
+        onView(allOf(withId(R.id.recycler_view), isDisplayed())).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+        onView(withId(R.id.fab)).perform(click())
+        onView(isRoot()).perform(pressBack())
+        onView(withId(R.id.favourite)).perform(click())
+        onView(allOf(withId(R.id.recycler_view), isDisplayed())).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+        onView(withId(R.id.description_value)).perform(swipeUp()).check(matches(isDisplayed()))
+        onView(withId(R.id.release_date_value)).perform(swipeUp()).check(matches(isDisplayed()))
+        onView(withId(R.id.rating)).perform(swipeUp()).check(matches(isDisplayed()))
+        onView(withId(R.id.genre)).perform(swipeUp()).check(matches(isDisplayed()))
+        onView(withId(R.id.original_language_value)).perform(swipeUp()).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun loadFavouriteTVShows(){
+        onView(withText("TV Show")).perform(click())
+        onView(allOf(withId(R.id.recycler_view), isDisplayed())).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+        onView(withId(R.id.fab)).perform(click())
+        onView(isRoot()).perform(pressBack())
+        onView(withId(R.id.favourite)).perform(click())
         onView(withText("TV Show")).perform(click())
         onView(allOf(withId(R.id.recycler_view), isDisplayed())).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
         onView(withId(R.id.description_value)).perform(swipeUp()).check(matches(isDisplayed()))

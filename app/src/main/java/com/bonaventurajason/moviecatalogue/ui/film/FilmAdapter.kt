@@ -27,7 +27,7 @@ class FilmAdapter : RecyclerView.Adapter<FilmAdapter.ViewHolder>() {
                 title.text = film.title
                 setOnClickListener {
                     onItemClickListener?.let {
-                        it(film.id)
+                        it(film)
                     }
                 }
             }
@@ -60,9 +60,9 @@ class FilmAdapter : RecyclerView.Adapter<FilmAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = differ.currentList.size
 
-    private var onItemClickListener: ((Int) -> Unit)? = null
+    private var onItemClickListener: ((FilmResult) -> Unit)? = null
 
-    fun setOnItemClickListener(listener: (Int) -> Unit){
+    fun setOnItemClickListener(listener: (FilmResult) -> Unit){
         onItemClickListener = listener
     }
 }

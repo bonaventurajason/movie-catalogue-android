@@ -20,9 +20,6 @@ data class DetailFilmResponse(
 	@field:SerializedName("poster_path")
 	val posterPath: String? = null,
 
-	@field:SerializedName("homepage")
-	val homePage: String? = null,
-
 	@field:SerializedName("release_date", alternate = ["first_air_date"])
 	val releaseDate: String? = null,
 

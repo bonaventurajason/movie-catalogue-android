@@ -14,6 +14,7 @@ import com.bonaventurajason.moviecatalogue.ui.detail.DetailFilmActivity
 import com.bonaventurajason.moviecatalogue.utils.Constant
 import com.bonaventurajason.moviecatalogue.utils.Constant.ARG_POSITION
 import com.bonaventurajason.moviecatalogue.utils.Constant.EXTRA_FILM_ID
+import com.bonaventurajason.moviecatalogue.utils.Constant.EXTRA_TITLE
 import com.bonaventurajason.moviecatalogue.utils.Constant.MOVIE
 import com.bonaventurajason.moviecatalogue.utils.Constant.TV_SHOW
 import com.bonaventurajason.moviecatalogue.utils.Constant.TYPE_OF_FILM
@@ -75,8 +76,10 @@ class FilmFragment : Fragment() {
                         TV_SHOW
                     }
                     val intent = Intent(requireContext(), DetailFilmActivity::class.java).apply {
-                        putExtra(EXTRA_FILM_ID, it)
+                        putExtra(EXTRA_FILM_ID, it.id)
                         putExtra(TYPE_OF_FILM, typeOfFilm)
+                        putExtra(EXTRA_TITLE, it.title)
+                        putExtra(Constant.IS_FROM_FAVOURITE, false)
                     }
                     startActivity(intent)
                 }

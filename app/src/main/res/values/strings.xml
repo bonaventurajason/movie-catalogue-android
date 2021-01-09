@@ -12,4 +12,10 @@
     <string name="retry">Retry</string>
     <string name="star">star</string>
     <string name="original_language">Original Language</string>
+    <string name="fab">fab</string>
+    <string name="favourite_menu">Favourite</string>
+    <string name="title_favourite_movies">Favourite Movies</string>
+
+    <string name="not_favourite_film">Film has been removed from Favourite.</string>
+    <string name="favourite_film">Film has been added to Favourite.</string>
 </resources>
