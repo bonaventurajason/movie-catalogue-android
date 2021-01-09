@@ -11,7 +11,6 @@ import com.bonaventurajason.moviecatalogue.data.source.remote.response.DetailFil
 import com.bonaventurajason.moviecatalogue.utils.Constant.MOVIE
 import com.bonaventurajason.moviecatalogue.utils.Resource
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class DetailFilmViewModel @ViewModelInject constructor(
     private val filmDataSource: FilmDataSource

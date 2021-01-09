@@ -1,6 +1,8 @@
 package com.bonaventurajason.moviecatalogue.data.source
 
 import androidx.lifecycle.LiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.bonaventurajason.moviecatalogue.data.source.local.entity.FilmEntity
 import com.bonaventurajason.moviecatalogue.data.source.local.room.FavouriteDAO
 import com.bonaventurajason.moviecatalogue.data.source.remote.api.FilmApi
@@ -93,12 +95,22 @@ class FilmRepository @Inject constructor(
     }
 
 
-    override fun getAllFavouriteMovies(): LiveData<List<FilmEntity>> {
-        return favouriteDAO.getAllMovies()
+    override fun getAllFavouriteMovies(): LiveData<PagedList<FilmEntity>> {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(4)
+            .setPageSize(4)
+            .build()
+        return LivePagedListBuilder(favouriteDAO.getAllMovies(), config).build()
     }
 
-    override fun getAllFavouriteTVShows(): LiveData<List<FilmEntity>> {
-        return favouriteDAO.getAllTVShows()
+    override fun getAllFavouriteTVShows(): LiveData<PagedList<FilmEntity>> {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(4)
+            .setPageSize(4)
+            .build()
+        return LivePagedListBuilder(favouriteDAO.getAllTVShows(), config).build()
     }
 
     override fun checkFavouriteFilms(title: String): LiveData<FilmEntity> {

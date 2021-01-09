@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.bonaventurajason.moviecatalogue.R
-import com.bonaventurajason.moviecatalogue.ui.home.SectionsPagerAdapter
 
 class FavouritePagerAdapter(
     private val context: Context,

@@ -1,12 +1,10 @@
 package com.bonaventurajason.moviecatalogue.ui.favourite
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.bonaventurajason.moviecatalogue.R
+import androidx.appcompat.app.AppCompatActivity
 import com.bonaventurajason.moviecatalogue.databinding.ActivityFavouriteBinding
-import com.bonaventurajason.moviecatalogue.ui.home.SectionsPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_home.*
+
 @AndroidEntryPoint
 class FavouriteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFavouriteBinding
@@ -22,6 +20,8 @@ class FavouriteActivity : AppCompatActivity() {
         binding.viewPager.adapter = favouritePagerAdapter
         binding.tabs.setupWithViewPager(binding.viewPager)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.elevation = 0f
     }
+
 }

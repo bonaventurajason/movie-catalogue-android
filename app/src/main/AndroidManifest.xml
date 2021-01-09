@@ -13,7 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Moviecatalogueandroid">
-        <activity android:name=".ui.favourite.FavouriteActivity"></activity>
+        <activity
+            android:name=".ui.favourite.FavouriteActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.home.HomeActivity" />
+        </activity>
         <activity android:name=".ui.detail.DetailFilmActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

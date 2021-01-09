@@ -2,10 +2,7 @@ package com.bonaventurajason.moviecatalogue.ui.detail
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bonaventurajason.moviecatalogue.R
@@ -32,7 +29,7 @@ class DetailFilmActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailFilmBinding
     private val viewModel: DetailFilmViewModel by viewModels()
 
-    var isFavourite = false
+    private var isFavourite = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -31,7 +31,7 @@ class FavouriteMovieFragment : Fragment() {
     companion object {
         fun newInstance(position: Int): FavouriteMovieFragment {
             val bundle = Bundle().apply {
-                putInt(Constant.ARG_POSITION, position)
+                putInt(ARG_POSITION, position)
             }
             return FavouriteMovieFragment().apply {
                 arguments = bundle

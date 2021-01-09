@@ -1,6 +1,7 @@
 package com.bonaventurajason.moviecatalogue.data.source
 
 import androidx.lifecycle.LiveData
+import androidx.paging.PagedList
 import com.bonaventurajason.moviecatalogue.data.source.local.entity.FilmEntity
 import com.bonaventurajason.moviecatalogue.data.source.remote.response.DetailFilmResponse
 import com.bonaventurajason.moviecatalogue.data.source.remote.response.FilmResponse
@@ -20,8 +21,8 @@ interface FilmDataSource {
     suspend fun insertFavouriteFilm(filmEntity: FilmEntity)
     suspend fun deleteFavouriteFilm(title: String)
 
-    fun getAllFavouriteMovies() : LiveData<List<FilmEntity>>
-    fun getAllFavouriteTVShows() : LiveData<List<FilmEntity>>
+    fun getAllFavouriteMovies() : LiveData<PagedList<FilmEntity>>
+    fun getAllFavouriteTVShows() : LiveData<PagedList<FilmEntity>>
     fun checkFavouriteFilms(title: String) : LiveData<FilmEntity>
 
 
